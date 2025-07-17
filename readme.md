@@ -31,6 +31,10 @@ npm install
 
 npm run dev
 
+## Test (jest)
+
+npm run test
+
 ## Build & Run (production)
 
 npm run build

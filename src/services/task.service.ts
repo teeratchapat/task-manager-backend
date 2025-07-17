@@ -5,6 +5,10 @@ export const getTasks = async (): Promise<ITask[]> => {
   return await TaskRepo.getAllTasks();
 };
 
+export const getTaskById = async (id: string): Promise<ITask | null> => {
+  return await TaskRepo.getTaskById(id);
+};
+
 export const addTask = async (title: string): Promise<ITask> => {
   return await TaskRepo.createTask(title);
 };

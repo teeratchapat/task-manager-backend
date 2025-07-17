@@ -6,6 +6,13 @@ export const getTasks = async (_req: Request, res: Response) => {
   res.json(tasks);
 };
 
+export const getTaskById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const task = await TaskService.getTaskById(id);
+  if (!task) return res.status(404).json({ message: "Task not found" });
+  res.status(200).json(task);
+};
+
 export const createTask = async (req: Request, res: Response) => {
   const { title } = req.body;
   if (!title) return res.status(400).json({ message: "Title is required" });
@@ -24,5 +31,5 @@ export const deleteTask = async (req: Request, res: Response) => {
   const { id } = req.params;
   const deletedTask = await TaskService.removeTask(id);
   if (!deletedTask) return res.status(404).json({ message: "Task not found" });
-  res.json({ message: "Task deleted" });
+  res.json({ message: "Task deleted successfully" });
 };

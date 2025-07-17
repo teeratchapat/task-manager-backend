@@ -4,6 +4,10 @@ export const getAllTasks = async (): Promise<ITask[]> => {
   return await TaskModel.find();
 };
 
+export const getTaskById = async (id: string): Promise<ITask | null> => {
+  return await TaskModel.findById(id);
+};
+
 export const createTask = async (title: string): Promise<ITask> => {
   return await TaskModel.create({ title });
 };
