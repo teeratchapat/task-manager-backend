@@ -23,3 +23,7 @@ export const editTask = async (
 export const removeTask = async (id: string): Promise<ITask | null> => {
   return await TaskRepo.deleteTask(id);
 };
+
+export function updateTask(id: string, arg1: { title: any; completed: any }) {
+  throw new Error("Function not implemented.");
+}

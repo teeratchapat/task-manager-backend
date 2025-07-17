@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as TaskService from "../services/task.service";
+import { TaskModel } from "../models/task.model";
 
 export const getTasks = async (_req: Request, res: Response) => {
   const tasks = await TaskService.getTasks();
@@ -22,11 +23,17 @@ export const createTask = async (req: Request, res: Response) => {
 
 export const updateTask = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const updatedTask = await TaskService.editTask(id, req.body);
-  if (!updatedTask) return res.status(404).json({ message: "Task not found" });
-  res.json(updatedTask);
-};
+  const { title, completed } = req.body;
 
+  const task = await TaskModel.findById(id);
+  if (!task) return res.status(404).json({ message: "Task not found" });
+
+  if (title !== undefined) task.title = title;
+  if (completed !== undefined) task.completed = completed;
+
+  await task.save();
+  res.json(task);
+};
 export const deleteTask = async (req: Request, res: Response) => {
   const { id } = req.params;
   const deletedTask = await TaskService.removeTask(id);
